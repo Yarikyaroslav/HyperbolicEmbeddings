@@ -4,8 +4,13 @@
 
 ## Overview
 
-This document serves as a guide for the Jupyter notebook containing several key functions related to the exploration and application of the hyperbolic Laplacian in graph theory. The notebook focuses on decision trees, examining how hyperbolic geometry can be applied to graph analysis and embedding.
-
+This document serves as a guide for the Jupyter notebook containing several key classes and methods related to the exploration and application of the hyperbolic Laplacian in graph theory. The notebook focuses precisely on decision trees, examining how (ultra-)hyperbolic geometry can be applied to graph analysis and embedding.
+## Classes
+### 1. `Tree`
+#### Instances
+- `__tree`: A `sklearn.tree._tree.Tree` decision tree structure, stored at initialization
+- `__adj_matrix`: Upper triangular adjacency matrix for the given `__tree` instance. (optional)
+- `node_count`: public instance describing the number of nodes in a tree
 ## Functions Included
 
 ### 1. `create_adjacency_matrix(tree)`
