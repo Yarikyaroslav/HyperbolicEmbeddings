@@ -47,65 +47,29 @@ Class which is devoted to creating a space-specific embedding of a given tree. A
 
 #### Methods
 
-- `make_eigenmaps(embed_dim, normed=False, symmetrized=True)`: Computes the eigenvalues and eigenvectors of the Laplacian matrix in the given space for the provided tree. This function is used for embedding graphs in a lower-dimensional space. The subspace's dimension to be used is `embed_dim`. `normed` is a boolean flag to determine whether to use a normalized Laplacian (configurable). `symmetrized`
+- `make_eigenmaps(embed_dim, normed=False, symmetrized=True) -> None`: Computes the eigenvalues and eigenvectors of the Laplacian matrix in the given space for the provided tree. This function is used for embedding graphs in a lower-dimensional space. The subspace's dimension to be used is `embed_dim`. `normed` is a boolean flag to determine whether to use a normalized Laplacian (configurable). `symmetrized` is the boolean flag that is `True` by default, used to symmetrize the adjacency matrix, which is by default upper traingular. Sets `__lap`, `__eigvals` and `__eigvecs` instances.
+- `get_eigenmaps(embed_dim, normed=False, symmetrized=True) -> Tuple[np.ndarray, np.ndarray]`: Method that returns the eigenvalues and the eigenvectors for the provided tree as a tuple of two multidimensional arrays. Arguments serve the same purpose as in `make_eigenmaps` method.
+- `get_laplacian(embed_dim, normed=False, symmetrized=True, sparse=True) -> np.ndarray or sps.csr_matrix`: Method that returns the laplacian of the given tree in the considered space. Arguments serve the same purpose as in `make_eigenmaps` method, the only difference is `sparse` boolean flag, which determines if the returned laplacian is in sparse or dense format.
+- `plot_eigen_dependency(idx_1, idx_2, title)`: Visualizes the graph by plotting the nodes using the two different eigenvectors and drawing edges according to the adjacency matrix. `idx_1` stands for the index of the first eigenvector to consider, `idx_2` stands for the index of the second eigenvector to consider. `title` sets the title of the correspoding graph of dependencies (optional).
 
 
 
-## Functions Included
+## Functions
 
-### 1. `create_adjacency_matrix(tree)`
+### 1. `project_vertices(eigvecs)` (has not been used during the main experiment)
 
-- **Description**: Constructs an adjacency matrix in Compressed Sparse Row (CSR) format from a given decision tree.
+- **Description**: Creates a projection of the eigenmap onto a 2D surface, using the first three eigenvectors as support.
 - **Input**:
-  - `tree`: A decision tree structure, typically obtained from a trained decision tree model.
+  - `eigvecs`: A multidimensional array with eigenvectors of the Laplacian as columns.
 - **Output**: 
-  - A CSR matrix representing the adjacency matrix of the tree.
-
-### 2. `laplacian_eigenmaps(adjacency_matrix, embed_dim, norm_laplacian=False)`
-- This function originates from the seminars.
-- **Description**: Computes the eigenvalues and eigenvectors of the Laplacian matrix for a given adjacency matrix. This function is used for embedding graphs in a lower-dimensional space.
-- **Inputs**:
-  - `adjacency_matrix`: The adjacency matrix of the graph in CSR format.
-  - `embed_dim`: The embedding dimension, determining the number of eigenvalues and eigenvectors to compute.
-  - `norm_laplacian`: A boolean flag to determine whether to use a normalized Laplacian.
-- **Output**: 
-  - A tuple of eigenvalues and eigenvectors.
-
-### 3. `plot_graph_with_edges(eigvec1, eigvec2, adjacency_matrix, title='Graph with Edges')`
-
-- **Description**: Visualizes the graph by plotting the nodes using the two different eigenvectors and drawing edges according to the adjacency matrix.
-- **Inputs**:
-  - `eigvec1`, `eigvec2`: Different eigenvectors for plotting the nodes in 2D.
-  - `adjacency_matrix`: The adjacency matrix of the graph.
-  - `title` (optional): The title for the plot.
-- **Output**: 
-  - A plot of the graph with nodes and edges, saved as a PNG file.
-
-### 4. `hyperbolic_laplacian(adjacency_matrix, alpha)`
-
-- **Description**: Creates a hyperbolic Laplacian matrix for a given graph represented by its adjacency matrix and a vector of alpha values.
-- **Inputs**:
-  - `adjacency_matrix`: The adjacency matrix of the graph in CSR format.
-  - `alpha`: A vector of alpha values.
-- **Output**: 
-  - The hyperbolic Laplacian matrix in CSR format.
-
-### 5. `hyperbolic_laplacian_eigenmaps(adjacency_matrix, alpha, embed_dim)`
-
-- **Description**: Computes the eigenvalues and eigenvectors of the hyperbolic Laplacian matrix, which is useful for hyperbolic embeddings of the graph.
-- **Inputs**:
-  - `adjacency_matrix`: The adjacency matrix of the graph in CSR format.
-  - `alpha`: A 1D numpy array of alpha values for the hyperbolic Laplacian.
-  - `embed_dim`: The embedding dimension for the eigenvalue and eigenvector computation.
-- **Output**: 
-  - A tuple of eigenvalues and eigenvectors of the hyperbolic Laplacian matrix.
+  - A tuple of arrays, representing the projected x and y coordinates of the vertices, encoded in eigenvectoes.
 
 ## Usage
 
-To use these functions in the notebook:
+To use all the named classes and methods in the notebook:
 
-1. Ensure that all necessary dependencies, such as `numpy`, `scipy`, and `matplotlib`, are installed.
-2. Import the functions into your Jupyter notebook.
-3. Utilize these functions as part of your analysis and experimentation with decision trees and hyperbolic Laplacian applications in graph theory.
+1. Ensure that all necessary dependencies, such as `numpy`, `scipy`, `sklearn`, `seaborn` and `matplotlib`, are installed.
+2. Import the named classes and functions into your Jupyter notebook.
+3. Utilize these classes and methods as part of your analysis and experimentation with decision trees and hyperbolic Laplacian applications in graph theory.
 
 ## Conclusion
